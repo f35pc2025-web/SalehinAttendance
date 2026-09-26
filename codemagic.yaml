@@ -9,13 +9,15 @@ workflows:
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
 
-      - name: Check Gradle Wrapper
+      - name: Build Android APK
         script: |
-          echo "=== ROOT FILES ==="
-          ls -la
-          echo "=== GRADLE FILE ==="
-          ls -la gradlew
-          file gradlew
+          chmod +x gradlew
+          ./gradlew assembleDebug
+
+      - name: Find APK
+        script: |
+          echo "=== APK FILES ==="
+          find . -type f -name "*.apk" -print
 
     artifacts:
-      - app/build/outputs/**/*.apk
+      - "**/*.apk"
