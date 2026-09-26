@@ -14,5 +14,10 @@ workflows:
           chmod +x gradlew
           ./gradlew assembleDebug
 
+      - name: Find APK
+        script: |
+          echo "===== APK FILES ====="
+          find "$CM_BUILD_DIR" -type f -name "*.apk" -print
+
     artifacts:
-      - app/build/outputs/**/*.apk
+      - "**/*.apk"
