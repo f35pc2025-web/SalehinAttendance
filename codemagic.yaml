@@ -9,10 +9,14 @@ workflows:
         script: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
 
+      - name: Fix Gradle Wrapper
+        script: |
+          sed -i 's/\r$//' gradlew
+          chmod +x gradlew
+
       - name: Build Android APK
         script: |
-          chmod +x gradlew
-          ./gradlew assembleDebug
+          bash gradlew assembleDebug
 
     artifacts:
       - app/build/outputs/**/*.apk
